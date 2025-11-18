@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Dgame.co - Pesan Ruangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        h1, h2, h3, .gaming-font { font-family: 'Orbitron', sans-serif; }
+        select, input[type="text"], input[type="time"], input[type="date"], input[type="number"], input[type="file"], input[type="tel"] {
+            background-color: #1e293b; 
+            color: white;
+            border-color: #334155; 
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+        /* Custom scrollbar untuk struk di preview-nya */
+        #receipt-container * {
+            box-sizing: border-box;
+        }
+        @keyframes pulse-red {
+            0%, 100% { background-color: #ef4444; }
+            50% { background-color: #b91c1c; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="font-bold text-2xl tracking-widest gaming-font text-white">
+                DGAME<span class="text-blue-500">.CO</span>
+            </div>
+            <nav class="text-sm font-medium">
+                <a href="landing_page.html" class="text-slate-400 hover:text-white mr-6 transition">BACK TO HOME</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 text-white gaming-font tracking-wide">BOOKING AREA</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
+            
+            <div class="lg:col-span-2 space-y-6">
+                
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl">
+                    <div class="flex items-center mb-4 border-b border-slate-600 pb-3">
+                        <div class="bg-blue-600 text-xs font-bold px-2 py-1 rounded mr-3">STEP 1</div>
+                        <h3 class="text-lg font-bold text-white">Lokasi, Room & Identitas</h3>
+                    </div>
+
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Nama Lengkap</label>
+                            <input type="text" id="customerName" placeholder="Contoh: Riski Ramadhan" class="w-full outline-none border border-slate-600 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">No. WhatsApp / HP</label>
+                            <input type="number" id="customerPhone" placeholder="Contoh: 0812xxxx" class="w-full outline-none border border-slate-600 focus:border-blue-500 appearance-none">
+                        </div>
+                    </div>
+
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Pilih Cabang</label>
+                            <select id="locationSelect" class="w-full rounded-lg p-3 text-lg font-semibold outline-none transition cursor-pointer border border-slate-600 focus:border-blue-500 bg-slate-900">
+                                <option value="chapter1">CHAPTER 1 - Ruko Mediterania</option>
+                                <option value="chapter2">CHAPTER 2 - Courtyard Galuh (New!)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Pilih Kategori Ruangan</label>
+                            <select id="roomType" class="w-full rounded-lg p-3 text-lg font-semibold outline-none transition cursor-pointer border border-slate-600 focus:border-blue-500">
+                                </select>
+                        </div>
+                    </div>
+                    
+
+                    <div class="mt-4 bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                        <span class="text-xs text-slate-400 uppercase font-bold">Fasilitas:</span>
+                        <div id="facilityList" class="mt-2 flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl relative overflow-hidden">
+                    <div class="flex items-center mb-4 border-b border-slate-600 pb-3">
+                        <div class="bg-blue-600 text-xs font-bold px-2 py-1 rounded mr-3">STEP 2</div>
+                        <h3 class="text-lg font-bold text-white">Atur Jadwal Main</h3>
+                    </div>
+
+                    <div class="mb-6 bg-red-900/20 border border-red-900 rounded-lg p-4">
+                        <h4 class="text-red-400 text-sm font-bold mb-2 flex items-center">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+                            Jadwal Terisi (Live Demo):
+                        </h4>
+                        <div class="flex space-x-2 overflow-x-auto pb-2">
+                            <div class="bg-red-500/20 border border-red-500 rounded px-3 py-2 text-center min-w-[100px]">
+                                <span class="block text-xs text-red-300">Booked</span>
+                                <span class="block font-bold text-white text-sm">14:00 - 16:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Tanggal</label>
+                            <input type="date" id="dateInput" class="w-full outline-none border border-slate-600 focus:border-blue-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Jam Mulai</label>
+                            <input type="time" id="startTime" value="10:00" class="w-full outline-none font-bold border border-slate-600 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Durasi (Jam)</label>
+                            <div class="flex items-center">
+                                <button type="button" id="btnMinus" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-l-lg transition">-</button>
+                                <input type="number" id="duration" value="2" min="1" max="10" class="w-full text-center bg-slate-900 p-3 font-bold outline-none border-y border-slate-700 h-[48px]" readonly>
+                                <button type="button" id="btnPlus" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-r-lg transition">+</button>
+                            </div>
+                        </div>
+                         
+                    </div>
+                    
+                    <div id="conflictMessage" class="hidden mt-4 p-3 bg-red-600 text-white font-bold text-center rounded-lg animate-bounce">
+                        ⚠️ JADWAL BENTROK! Silakan pilih jam lain.
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl">
+                    <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-slate-600">Tambahan & Pembayaran</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                        <label class="flex items-center p-3 border border-slate-600 rounded-lg cursor-pointer hover:bg-slate-700 transition group">
+                            <input type="checkbox" class="addon-checkbox w-5 h-5 text-blue-600 rounded bg-slate-900 border-slate-500" value="5000" data-type="hourly">
+                            <div class="ml-3 flex-1">
+                                <span class="block font-semibold text-slate-200 group-hover:text-white">Extra Stick</span>
+                                <span class="text-xs text-slate-400">+Rp 5.000/jam</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-3 border border-slate-600 rounded-lg cursor-pointer hover:bg-slate-700 transition group">
+                            <input type="checkbox" class="addon-checkbox w-5 h-5 text-blue-600 rounded bg-slate-900 border-slate-500" value="15000" data-type="flat">
+                            <div class="ml-3 flex-1">
+                                <span class="block font-semibold text-slate-200 group-hover:text-white">Paket Snack</span>
+                                <span class="text-xs text-slate-400">+Rp 15.000 (Flat)</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="p-3 bg-blue-900/50 rounded-lg border border-blue-600">
+                        <label class="block text-xs font-bold text-blue-400 uppercase mb-2">Metode Pembayaran</label>
+                        <input type="text" value="Payment Gateway (Midtrans/Xendit)" readonly class="w-full bg-slate-900 font-bold border-blue-600 text-lg">
+                        <p class="text-xs text-blue-300 mt-1">Simulasi: Setelah klik booking, bukti pembayaran akan <b>otomatis terunduh</b>.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-slate-800 rounded-xl shadow-2xl p-0 sticky top-24 border border-slate-700 overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-center">
+                        <h3 class="text-xl font-bold text-white gaming-font tracking-widest">TOTAL TAGIHAN</h3>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="block text-sm text-slate-400">Customer</span>
+                                <span class="block font-bold text-white text-lg" id="displayCustomerName">-</span>
+                                <span class="block text-xs text-slate-400" id="displayCustomerPhone"></span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-sm text-slate-400">Room Type</span>
+                                <span class="block font-bold text-blue-400" id="displayRoomCat">N/A</span>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-dashed border-slate-600 my-4"></div>
+
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="text-slate-400">Durasi Main</span>
+                            <span class="text-white font-semibold"><span id="displayDuration">0</span> Jam</span>
+                        </div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span class="text-slate-400">Jam</span>
+                            <span class="text-white font-semibold"><span id="displayStart">--:--</span> - <span id="displayEnd">--:--</span></span>
+                        </div>
+                        
+                        <div class="bg-slate-900 rounded p-3 mt-4 space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Sewa Room</span>
+                                <span class="text-white" id="priceRoom">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-green-400" id="addonRow" style="display:none;">
+                                <span>+ Add-ons</span>
+                                <span id="priceAddon">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-yellow-400" id="paymentRow">
+                                <span>Metode</span>
+                                <span>Midtrans Payment</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <span class="block text-sm text-slate-400 mb-1">Total yang harus dibayar</span>
+                            <span class="block text-4xl font-black text-white" id="totalPrice">Rp 0</span>
+                        </div>
+
+                        <button id="btnSubmit" class="w-full mt-6 bg-red-600 hover:bg-red-500 text-white font-bold py-4 px-4 rounded-lg shadow-lg transform transition hover:scale-105 flex justify-center items-center">
+                            BAYAR SEKARANG
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="receipt-container" style="position: absolute; left: -9999px; top: 0; width: 350px; background: #ffffff; color: #1f2937; font-family: 'Inter', sans-serif; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+        <div style="text-align: center; padding-bottom: 10px; margin-bottom: 15px; border-bottom: 2px solid #3b82f6;">
+            <h2 style="margin: 0; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 26px; color: #1e3a8a;">DGAME.CO</h2>
+            <p style="margin: 5px 0 0; font-size: 14px; color: #4b5563;">PROOF OF PAYMENT / BOOKING CONFIRMATION</p>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding: 10px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px;">
+            <div style="font-size: 14px;">
+                <p style="margin: 0; font-weight: 600;">Order ID:</p>
+                <p style="margin: 0; font-weight: 800; color: #1e3a8a;" id="recID">INV-XXXXXX</p>
+            </div>
+             <div style="font-size: 14px; text-align: right;">
+                <p style="margin: 0; font-weight: 600;">Tanggal Booking:</p>
+                <p style="margin: 0;" id="recDate">19 Nov 2025</p>
+            </div>
+        </div>
+        
+        <div style="font-size: 14px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #9ca3af;">
+            <p style="margin: 0 0 5px 0; font-weight: bold; color: #3b82f6;">DETAIL CUSTOMER</p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>Nama:</span> <span id="recName"></span></p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>No. HP:</span> <span id="recPhone"></span></p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>Cabang:</span> <span id="recLocation"></span></p>
+        </div>
+        
+        <div style="font-size: 14px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #9ca3af;">
+            <p style="margin: 0 0 5px 0; font-weight: bold; color: #3b82f6;">DETAIL BOOKING</p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>Room:</span> <span id="recRoomType" style="font-weight: 600;"></span></p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>Durasi:</span> <span id="recDuration"></span></p>
+            <p style="margin: 0; display: flex; justify-content: space-between;"><span>Jam Main:</span> <span id="recTime" style="font-weight: 600; color: #1e3a8a;"></span></p>
+        </div>
+
+        <table style="width: 100%; font-size: 14px; margin-bottom: 15px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding-bottom: 5px;">Item Harga</th>
+                    <th style="text-align: right; padding-bottom: 5px;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding-top: 5px;">Sewa Room (x <span id="recDurHours"></span> jam)</td>
+                    <td style="text-align: right; padding-top: 5px;" id="recRoomPrice">Rp 0</td>
+                </tr>
+                 <tr id="recAddonRow" style="display:none;">
+                    <td style="padding-top: 5px; color: #10b981;">+ Add-ons</td>
+                    <td style="text-align: right; padding-top: 5px; color: #10b981;" id="recAddonPrice"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="border-top: 2px solid #3b82f6; padding-top: 10px; margin-top: 10px; text-align: right;">
+            <p style="font-size: 16px; font-weight: bold; margin: 0; display: flex; justify-content: space-between;">
+                <span>TOTAL BAYAR</span> 
+                <span id="recTotal" style="font-size: 24px; color: #dc2626;">Rp 0</span>
+            </p>
+            <p style="font-size: 12px; margin-top: 5px; color: #4b5563;">Pembayaran LUNAS via Midtrans/Payment Gateway</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px; font-size: 12px; color: #6b7280;">
+            <p style="margin: 0; font-weight: 600;">--- Tunjukkan Struk ini kepada Admin ---</p>
+            <p style="margin: 5px 0 0;">(Booking Anda Terkonfirmasi Otomatis)</p>
+        </div>
+    </div>
+
+    <script>
+        const roomData = {
+            chapter1: [
+                { group: "REGULER ROOM (Smoking Area)", items: [{ name: "Reguler - PS3", price: 7000, facility: "PS3, 2 Stick, TV 43 Inch, Max 4 Orang, Smoking" }, { name: "Reguler - PS4", price: 10000, facility: "PS4, 2 Stick, TV 43 Inch, Max 4 Orang, Smoking" }, { name: "Reguler - PS5", price: 15000, facility: "PS5, 2 DualSense, TV 43 Inch, Max 4 Orang, Smoking" }] },
+                { group: "VIP ROOM (Private)", items: [{ name: "VIP - PS3", price: 20000, facility: "PS3, Private Pods, Beanbag, Netflix" }, { name: "VIP - PS4", price: 22000, facility: "PS4, Private Pods, Beanbag, Netflix" }, { name: "VIP - PS5", price: 25000, facility: "PS5, Private Pods, Beanbag, Netflix" }] },
+                { group: "VVIP ROOM (Ultimate)", items: [{ name: "VVIP - PS5 Ultimate", price: 50000, facility: "PS5 + Switch + Oculus (ALL IN), TV 65 Inch, Max 8 Orang" }] }
+            ],
+            chapter2: [
+                { group: "REGULER ROOM (Pods Only)", items: [{ name: "Reguler - PS3", price: 8000, facility: "PS3, TV 43 Inch QLED, Sofa, Max 3 Orang" }, { name: "Reguler - PS4 Pro", price: 12000, facility: "PS4 Pro, TV 43 Inch QLED, Sofa, Max 3 Orang" }, { name: "Reguler - PS5", price: 17000, facility: "PS5, TV 43 Inch QLED, Sofa, Max 3 Orang" }] },
+                { group: "VIP ROOM (Pods Only)", items: [{ name: "VIP - PS4 Pro", price: 25000, facility: "PS4 Pro, TV 43 Inch QLED, Sofa, Max 4 Orang" }, { name: "VIP - PS5", price: 30000, facility: "PS5, TV 43 Inch QLED, Sofa, Max 4 Orang" }, { name: "VIP - Switch", price: 30000, facility: "Nintendo Switch, TV 43 Inch QLED, Sofa, Max 4 Orang" }] },
+                { group: "SPECIAL ROOMS (Themed)", items: [{ name: "Simulator - PS5", price: 35000, facility: "PS5, Racing Seat & Wheel, TV 43 Inch QLED, Max 1 Orang" }, { name: "MARIO ROOM - PS5", price: 55000, facility: "PS5 + Switch (Free), TV 55 Inch, Max 6 Orang, Free Netflix" }, { name: "LUIGI ROOM - PS5", price: 65000, facility: "PS5 + Switch (Free), TV 65 Inch, Max 8 Orang, Free Netflix" }] }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Elements
+            const locationSelect = document.getElementById('locationSelect');
+            const roomType = document.getElementById('roomType');
+            const facilityList = document.getElementById('facilityList');
+            const startTime = document.getElementById('startTime');
+            const dateInput = document.getElementById('dateInput');
+            const duration = document.getElementById('duration');
+            const btnPlus = document.getElementById('btnPlus');
+            const btnMinus = document.getElementById('btnMinus');
+            const addonCheckboxes = document.querySelectorAll('.addon-checkbox');
+            const btnSubmit = document.getElementById('btnSubmit');
+            const conflictMessage = document.getElementById('conflictMessage');
+            const customerName = document.getElementById('customerName');
+            const customerPhone = document.getElementById('customerPhone');
+            
+            // Display Elements
+            const displayRoomCat = document.getElementById('displayRoomCat');
+            const displayStart = document.getElementById('displayStart');
+            const displayEnd = document.getElementById('displayEnd');
+            const displayDuration = document.getElementById('displayDuration');
+            const priceRoomEl = document.getElementById('priceRoom');
+            const priceAddonEl = document.getElementById('priceAddon');
+            const addonRow = document.getElementById('addonRow');
+            const totalPriceEl = document.getElementById('totalPrice');
+            const displayCustomerName = document.getElementById('displayCustomerName');
+            const displayCustomerPhone = document.getElementById('displayCustomerPhone');
+            const paymentRow = document.getElementById('paymentRow');
+
+            // Set default date to today
+            dateInput.valueAsDate = new Date();
+
+            // Dummy Data
+            const bookedSlots = [{ start: 14, end: 16 }];
+            const formatRupiah = (num) => 'Rp ' + num.toLocaleString('id-ID');
+
+            // FUNGSI: Update Pilihan Room
+            function updateRoomOptions() {
+                const selectedLoc = locationSelect.value;
+                const data = roomData[selectedLoc];
+                roomType.innerHTML = "";
+
+                data.forEach(group => {
+                    const optGroup = document.createElement('optgroup');
+                    optGroup.label = group.group;
+                    
+                    group.items.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.price;
+                        option.text = `${item.name} (${formatRupiah(item.price)}/jam)`;
+                        option.setAttribute('data-facility', item.facility);
+                        option.setAttribute('data-cat', item.name.split(' - ')[0]); 
+                        option.setAttribute('data-raw-name', item.name);
+                        option.setAttribute('data-location-name', locationSelect.options[locationSelect.selectedIndex].text); // Ambil nama cabang
+                        optGroup.appendChild(option);
+                    });
+                    roomType.appendChild(optGroup);
+                });
+                calculate();
+            }
+
+            function updateFacilities(facilities) {
+                if (!facilityList) return; 
+                facilityList.innerHTML = '';
+                if(facilities) {
+                    facilities.split(', ').forEach(item => {
+                        const span = document.createElement('span');
+                        span.className = 'text-xs bg-blue-900 text-blue-200 px-2 py-1 rounded border border-blue-700';
+                        span.innerText = item.trim();
+                        facilityList.appendChild(span);
+                    });
+                }
+            }
+
+            // FUNGSI: Kalkulasi Utama
+            function calculate() {
+                if (roomType.options.length === 0) return; 
+
+                // Get Values
+                const pricePerHour = parseInt(roomType.value) || 0;
+                const selectedOption = roomType.options[roomType.selectedIndex];
+                const facilities = selectedOption ? selectedOption.getAttribute('data-facility') : '';
+                const dur = parseInt(duration.value) || 1;
+                const startVal = startTime.value;
+
+                // Cek Bentrok
+                let isConflict = false;
+                let startHourDecimal = 0;
+                if (startVal) {
+                    let [h, m] = startVal.split(':').map(Number);
+                    startHourDecimal = h + (m / 60);
+                    let endHourDecimal = startHourDecimal + dur;
+                    for (let slot of bookedSlots) {
+                        if (startHourDecimal < slot.end && endHourDecimal > slot.start) {
+                            isConflict = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Update Button UI
+                if (btnSubmit) {
+                    if (isConflict) {
+                        btnSubmit.innerText = "❌ JAM BENTROK / PENUH";
+                        btnSubmit.disabled = true;
+                        btnSubmit.classList.add('bg-red-600', 'animate-pulse');
+                        if (conflictMessage) conflictMessage.classList.remove('hidden');
+                    } else {
+                        btnSubmit.innerText = "BAYAR SEKARANG";
+                        btnSubmit.disabled = false;
+                        btnSubmit.classList.remove('bg-red-600', 'animate-pulse');
+                        btnSubmit.classList.add('bg-red-600'); 
+                        if (conflictMessage) conflictMessage.classList.add('hidden');
+                    }
+                }
+                
+                // Update Info
+                updateFacilities(facilities);
+                
+                let consoleName = selectedOption.text.split(' (')[0];
+                if (displayRoomCat) displayRoomCat.innerText = consoleName;
+                
+                if (displayDuration) displayDuration.innerText = dur;
+                if (displayStart) displayStart.innerText = startVal || '--:--';
+                
+                if (startVal) {
+                    let [h, m] = startVal.split(':').map(Number);
+                    let endHourDecimal = h + (m / 60) + dur;
+                    let endH = Math.floor(endHourDecimal % 24);
+                    let endM = Math.round((endHourDecimal % 1) * 60);
+                    if (displayEnd) displayEnd.innerText = `${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}`;
+                } else {
+                    if (displayEnd) displayEnd.innerText = '--:--';
+                }
+
+                // Hitung Harga
+                const roomTotal = pricePerHour * dur;
+                let addonTotal = 0;
+                addonCheckboxes.forEach(box => {
+                    if (box.checked) {
+                        const val = parseInt(box.value);
+                        const type = box.getAttribute('data-type');
+                        if (type === 'hourly') addonTotal += (val * dur);
+                        else addonTotal += val;
+                    }
+                });
+
+                if (priceRoomEl) priceRoomEl.innerText = formatRupiah(roomTotal);
+                
+                if (addonRow) addonRow.style.display = addonTotal > 0 ? 'flex' : 'none';
+                if (priceAddonEl) priceAddonEl.innerText = formatRupiah(addonTotal);
+                
+                if (totalPriceEl) totalPriceEl.innerText = formatRupiah(roomTotal + addonTotal);
+
+                // Update Customer Data
+                if (displayCustomerName) displayCustomerName.innerText = customerName.value || '-';
+                if (displayCustomerPhone) displayCustomerPhone.innerText = customerPhone.value || '';
+                if (paymentRow) paymentRow.style.display = 'flex';
+            }
+
+            // FUNGSI: Download Struk
+            function downloadReceipt() {
+                // 1. Isi data ke template struk
+                const selectedOption = roomType.options[roomType.selectedIndex];
+                const rawName = selectedOption.getAttribute('data-raw-name');
+                const locationName = locationSelect.options[locationSelect.selectedIndex].text;
+                
+                // Formatting tanggal (misal: "19 Nov 2025")
+                const dateObj = new Date(dateInput.value);
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                const formattedDate = dateObj.toLocaleDateString('id-ID', options);
+
+                // Isi data ke template
+                document.getElementById('recDate').innerText = formattedDate;
+                document.getElementById('recID').innerText = "DGBOOK-" + Math.floor(Math.random() * 100000);
+                document.getElementById('recName').innerText = customerName.value;
+                document.getElementById('recPhone').innerText = customerPhone.value;
+                document.getElementById('recLocation').innerText = locationName;
+
+                document.getElementById('recRoomType').innerText = rawName;
+                document.getElementById('recDuration').innerText = duration.value + " Jam";
+                document.getElementById('recDurHours').innerText = duration.value;
+                document.getElementById('recTime').innerText = `${displayStart.innerText} - ${displayEnd.innerText}`;
+                
+                // Addon di struk
+                if(priceAddonEl.innerText !== "Rp 0") {
+                     document.getElementById('recAddonRow').style.display = 'table-row';
+                     document.getElementById('recAddonPrice').innerText = priceAddonEl.innerText;
+                } else {
+                     document.getElementById('recAddonRow').style.display = 'none';
+                }
+                
+                document.getElementById('recRoomPrice').innerText = priceRoomEl.innerText;
+                document.getElementById('recTotal').innerText = totalPriceEl.innerText;
+
+                // 2. Generate Gambar pake html2canvas
+                const receiptContainer = document.getElementById('receipt-container');
+                
+                html2canvas(receiptContainer, {
+                    scale: 2, // Meningkatkan resolusi gambar
+                    logging: false,
+                    useCORS: true 
+                }).then(canvas => {
+                    // Buat link download
+                    const link = document.createElement('a');
+                    link.download = `Struk-DGame-${customerName.value.replace(/\s/g, '-')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    // Balikin tombol
+                    btnSubmit.innerText = "BERHASIL! Struk Terunduh";
+                    btnSubmit.classList.remove('bg-orange-500', 'animate-pulse');
+                    btnSubmit.classList.add('bg-green-600');
+                }).catch(err => {
+                    alert("Gagal generate struk, coba lagi. (Cek console log)");
+                    console.error("html2canvas error:", err);
+                });
+            }
+
+            // FUNGSI: Klik Bayar
+            function initiatePayment(e) {
+                e.preventDefault(); 
+
+                if (btnSubmit.disabled) return; 
+
+                const name = customerName.value.trim();
+                const phone = customerPhone.value.trim();
+                
+                if (!name || !phone) {
+                    alert("⚠️ Nama lengkap dan No HP wajib diisi!");
+                    if(!name) customerName.focus();
+                    else customerPhone.focus();
+                    return;
+                }
+                
+                btnSubmit.innerText = "MEMPROSES PEMBAYARAN...";
+                btnSubmit.disabled = true;
+                btnSubmit.classList.add('bg-orange-500', 'animate-pulse');
+                btnSubmit.classList.remove('bg-red-600');
+
+                // Simulasi delay payment gateway
+                setTimeout(() => {
+                    // Jika sukses, download struk
+                    alert("✅ PEMBAYARAN BERHASIL!\nStruk bukti bayar akan diunduh otomatis.");
+                    downloadReceipt();
+                }, 2000);
+            }
+
+            // 2. Event Listeners
+            if (btnSubmit) btnSubmit.addEventListener('click', initiatePayment);
+            
+            if (btnPlus) btnPlus.addEventListener('click', () => {
+                let current = parseInt(duration.value) || 0;
+                if (current < 10) { duration.value = current + 1; calculate(); }
+            });
+            if (btnMinus) btnMinus.addEventListener('click', () => {
+                let current = parseInt(duration.value) || 0;
+                if (current > 1) { duration.value = current - 1; calculate(); }
+            });
+
+            if (locationSelect) locationSelect.addEventListener('change', updateRoomOptions);
+            if (roomType) roomType.addEventListener('change', calculate);
+            if (startTime) startTime.addEventListener('input', calculate);
+            if (dateInput) dateInput.addEventListener('input', calculate); // Perhitungan juga butuh tanggal
+            addonCheckboxes.forEach(box => { if (box) box.addEventListener('change', calculate); });
+
+            if (customerName) customerName.addEventListener('input', calculate);
+            if (customerPhone) customerPhone.addEventListener('input', calculate);
+
+            // 3. Init
+            updateRoomOptions(); 
+        });
+    </script>
+</body>
+</html>
